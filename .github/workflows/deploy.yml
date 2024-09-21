@@ -15,10 +15,10 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
 
       - name: Buildar a imagem do docker
-        run: docker build -t lilibandeira/games-deploy .
-        
+        run: docker build -t mayarapimenta92/games-deploy .
+
       - name: Publicar a imagem da aplicação no docker hub
-        run: docker push lilibandeira/games-deploy:latest
+        run: docker push mayarapimenta92/games-deploy:latest
 
   deploy:  
     needs: build
@@ -39,10 +39,10 @@ jobs:
           fi
 
       - name: Pull da imagem da aplicacao do dockerhub
-        run: docker pull lilibandeira/games-deploy:latest
+        run: docker pull mayarapimenta92/games-deploy:latest
 
       - name: Deletar container da aplicação do app existente
         run: docker rm -f
 
       - name: Criar/rodar o container da aplicacao
-        run: docker run -d -p 3000:3000 --name app-container --network my-net -e DB_URL="postgresql://postgres:12345678@database-container:5432/gamesdatabase?schema=public" lilibandeira/games-deploy:latest sh -c "npm run migration:run && npm run start"
+        run: docker run -d -p 3000:3000 --name app-container --network my-net -e DB_URL="postgresql://postgres:12345678@database-container:5432/gamesdatabase?schema=public" mayarapimenta92/games-deploy:latest sh -c "npm run migration:run && npm run start"
