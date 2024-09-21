@@ -10,10 +10,13 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
+
       - name: Login no meu docker hub
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
+
       - name: Buildar a imagem do docker
         run: docker build -t lilibandeira/games-deploy .
+        
       - name: Publicar a imagem da aplicação no docker hub
         run: docker push lilibandeira/games-deploy:latest
 
