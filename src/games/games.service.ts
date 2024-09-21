@@ -17,6 +17,8 @@ export class GamesService {
   async findAll(): Promise<CreateGameDto[]> {
     const games = await this.gamesRepository.find();
 
+    console.log(games);
+
     return games;
   }
 
